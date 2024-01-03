@@ -1,3 +1,4 @@
+import 'package:first_todo_app/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -6,9 +7,34 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Todo App')),
+      backgroundColor: tdBGColor,
+      appBar: _buildAppBar(),
       body: Container(
         child: Text('Hello World'),
+      ),
+    );
+  }
+
+  AppBar _buildAppBar() {
+    return AppBar(
+      backgroundColor: tdBGColor,
+      elevation: 0,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Icon(
+            Icons.menu,
+            color: tdBlack,
+            size: 30,
+          ),
+          Container(
+              height: 40,
+              width: 40,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.asset('assets/images/avatar.png'),
+              ))
+        ],
       ),
     );
   }
