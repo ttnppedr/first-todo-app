@@ -3,9 +3,14 @@ import 'package:first_todo_app/model/todo.dart';
 import 'package:first_todo_app/widgets/todo_item.dart';
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   final todoList = Todo.todoList();
 
   @override
@@ -36,7 +41,12 @@ class Home extends StatelessWidget {
                           ),
                         ),
                       ),
-                      for (Todo todo in todoList) TodoItem(todo: todo),
+                      for (Todo todo in todoList)
+                        TodoItem(
+                          todo: todo,
+                          onTodoChanged: _handleTodoChange,
+                          onDeleteItem: _handleDeleteItem,
+                        ),
                     ],
                   ),
                 ),
@@ -105,6 +115,18 @@ class Home extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _handleTodoChange(Todo todo) {
+    setState(() {
+      todo.isDone = !todo.isDone;
+    });
+  }
+
+  void _handleDeleteItem(String id) {
+    setState(() {
+      todoList.removeWhere((item) => item.id == id);
+    });
   }
 
   Widget searchBox() {
